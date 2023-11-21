@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'PingARLT';
+    src: url('/public/Fonts/PingAR+LT-ExtraLight.otf') format('opentype'); 
+    font-weight: thin;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: 'PingARLT-ExtraLight', sans-serif;
+  }
