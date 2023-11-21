@@ -27,6 +27,7 @@ export default function OrganizationSelector() {
     setIsOpen(false);
     localStorage.setItem("org", org);
     localStorage.setItem("orgIndex", index);
+    window.location.reload(false)
   };
 
   return (

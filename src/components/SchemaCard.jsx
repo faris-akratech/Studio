@@ -3,7 +3,7 @@ import React from "react";
 export default function SchemaCard({ name, version }) {
   return (
     <>
-      <div className="rounded-lg px-6 py-4 text-sm bg-[#EDEDED] text-[#0F163A] relative overflow-hidden w-full">
+      <div className="rounded-lg px-6 py-4 text-sm bg-[#EDEDED] text-[#0F163A] relative overflow-hidden w-full border-2 hover:border-[#0F163A] duration-200 ease-in-out">
         <div className="py-2">
           <svg
             width="314"

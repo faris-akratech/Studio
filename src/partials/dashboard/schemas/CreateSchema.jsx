@@ -9,16 +9,21 @@ export default function CreateSchema() {
   const [attributes, setAttributes] = useState([
     { attributeName: "", schemaDataType: "", displayName: "" },
   ]);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const id = localStorage.getItem("orgIndex");
-    const data = { schemaVersion:version, schemaName:name, attributes };
+    const data = { schemaVersion: version, schemaName: name, attributes };
     const response = await createNewSchema(data, id);
     if (response.status === 200) navigate("/dashboard/view-schemas");
-    else setErr(response?.response?.data?.error);
+    else {
+      setErr(response?.response?.data?.error);
+      setLoading(false);
+    }
   };
 
   const handleAttributeChange = (index, field, value) => {
@@ -154,10 +159,13 @@ export default function CreateSchema() {
 
             <div className="w-11/12 justify-center flex">
               <button
-                className="block w-full h-20 bg-[#0F163A] mt-4 py-2 rounded-2xl border-2 border-white hover:text-[#0F163A] hover:bg-[#FF7F43] hover:border-2 hover:border-[#FF7F43] duration-200 ease-in-out text-white font-semibold mb-2"
+                className={`block w-full h-20 bg-[#0F163A] mt-4 py-2 rounded-2xl border-2 border-white hover:text-[#0F163A] hover:bg-[#FF7F43] hover:border-2 hover:border-[#FF7F43] duration-200 ease-in-out text-white font-semibold mb-2 ${
+                  loading ? "cursor-not-allowed" : ""
+                }`}
                 type="submit"
+                disabled={loading}
               >
-                Submit
+                {loading ? "Creating new schema..." : "Create"}
               </button>
             </div>
             {err && <div className="text-red-500 text-2xl">Error: {err}</div>}

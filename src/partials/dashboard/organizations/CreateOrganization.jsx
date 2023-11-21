@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import imageLoading from "/images/imageLoading.png";
-import Button from "../../../components/Button";
 import { createNewOrganization } from "../../../api/organizationsAPI";
 import { useNavigate } from "react-router-dom";
 
@@ -10,11 +9,13 @@ export default function CreateOrganization() {
   const [desc, setDesc] = useState("");
   const [site, setSite] = useState("");
   const [logo, setLogo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = {
       name,
       description: desc,
@@ -28,7 +29,10 @@ export default function CreateOrganization() {
       setSite("");
       setLogo("");
       navigate("/dashboard/view-organizations");
-    } else setErr(response?.response?.data?.error);
+    } else {
+      setErr(response?.response?.data?.error);
+      setLoading(false);
+    }
   };
 
   const handleLogoChange = (e) => {
@@ -126,10 +130,13 @@ export default function CreateOrganization() {
 
             <div className="w-full justify-center flex">
               <button
-                className="block w-full h-20 bg-[#0F163A] mt-4 py-2 rounded-2xl border-2 border-white hover:text-[#0F163A] hover:bg-[#FF7F43] hover:border-2 hover:border-[#FF7F43] duration-200 ease-in-out text-white font-semibold mb-2"
+                className={`block w-full h-20 bg-[#0F163A] mt-4 py-2 rounded-2xl border-2 border-white hover:text-[#0F163A] hover:bg-[#FF7F43] hover:border-2 hover:border-[#FF7F43] duration-200 ease-in-out text-white font-semibold mb-2 ${
+                  loading ? "cursor-not-allowed" : ""
+                }`}
                 type="submit"
+                disabled={loading}
               >
-                Submit
+                {loading ? "Creating new organization..." : "Create"}
               </button>
             </div>
             {err && <div className="text-red-500 text-2xl">Error: {err}</div>}

@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import Verification from "./partials/authentication/Verification";
 import SignupUser from "./partials/authentication/SignupUser";
 import SignupPassword from "./partials/authentication/SignupPassword";
-import LoginPage from "./pages/authentication/loginPage";
+import LoginPage from "./pages/authentication/LoginPage";
 import Dashboard from "./partials/dashboard/Overview";
 import PrivateRoute from "./services/PrivateRoute";
 import SignupUserPage from "./pages/authentication/SignupUserPage";
@@ -14,11 +14,11 @@ import SignupPasswordPage from "./pages/authentication/SignupPasswordPage";
 import Homepage from "./pages/dashboard/Homepage";
 import ViewUsersPage from "./pages/dashboard/users/ViewUsersPage";
 import ViewInvitesPage from "./pages/dashboard/users/ViewInvitesPage";
-import ViewOrganizationsPage from "./pages/dashboard/organizations/viewOrganizationsPage";
-import CreateOrganizationPage from "./pages/dashboard/organizations/createOrganizationPage";
+import ViewOrganizationsPage from "./pages/dashboard/organizations/ViewOrganizationsPage";
+import CreateOrganizationPage from "./pages/dashboard/organizations/CreateOrganizationPage";
 import ViewSchemasPage from "./pages/dashboard/schemas/ViewSchemasPage";
 import CreateSchemaPage from "./pages/dashboard/schemas/CreateSchemaPage";
-import SingleOrganizationPage from "./pages/dashboard/organizations/singleOrganizationPage";
+import SingleOrganizationPage from "./pages/dashboard/organizations/SingleOrganizationPage";
 
 function App() {
   return (
