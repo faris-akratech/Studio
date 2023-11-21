@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../../../components/Sidebar'
 import Header from '../../../components/Header'
-import CreateOrganization from '../../../partials/dashboard/organizations/createOrganization'
+import CreateOrganization from '../../../partials/dashboard/organizations/CreateOrganization'
 
 export default function CreateOrganizationPage() {
   return (

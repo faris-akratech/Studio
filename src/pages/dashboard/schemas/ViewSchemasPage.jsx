@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../../../components/Sidebar";
 import Header from "../../../components/Header";
-import ViewSchemas from "../../../partials/dashboard/schemas/viewSchemas";
+import ViewSchemas from "../../../partials/dashboard/schemas/ViewSchemas";
 
 export default function ViewSchemasPage() {
   return (

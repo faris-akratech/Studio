@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import createAxiosInstance from "../../services/axiosInterceptor";
 import { AUTH_SERVER } from "../../services/constants";
 import { useNavigate } from "react-router-dom";
@@ -22,8 +22,6 @@ export default function Login() {
       return;
     }
 
-    // const { iv, encryptedValue } = encrypt(password);
-
     const data = { email, password };
     try {
       const response = await axiosInstance.post("/signin", data);
@@ -33,7 +31,7 @@ export default function Login() {
         localStorage.setItem("access", encryptedValue);
         localStorage.setItem("value", iv);
         navigate("/dashboard");
-        window.location.reload(false)
+        window.location.reload(false);
       }
     } catch (err) {
       console.error(err);

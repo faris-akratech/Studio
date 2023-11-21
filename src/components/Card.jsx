@@ -2,9 +2,6 @@ import React from "react";
 
 export default function Card({ content, color, count }) {
   return (
-    // <div className={style}>
-    //     {content}
-    // </div>
     <div className={`flex-shrink-0 relative overflow-hidden rounded-lg w-full shadow-lg ${color}`}>
       <svg
         className="absolute bottom-0 left-0 mb-8"

@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../../../components/Sidebar'
 import Header from '../../../components/Header'
-import ViewOrganizations from '../../../partials/dashboard/organizations/viewOrganizations'
+import ViewOrganizations from '../../../partials/dashboard/organizations/ViewOrganizations'
 
 export default function ViewOrganizationsPage() {
   return (

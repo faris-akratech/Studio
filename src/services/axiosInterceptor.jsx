@@ -4,8 +4,7 @@ const createAxiosInstance = (baseURL) => {
   const instance = axios.create({
     baseURL,
     headers: {
-      'Content-Type': 'application/json', // Set the desired content type here
-      // Add any other headers you want to include for all requests
+      'Content-Type': 'application/json',
     },
   });
 
