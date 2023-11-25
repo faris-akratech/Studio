@@ -29,7 +29,9 @@ export default function ViewSchemas() {
   }, []);
 
   useEffect(() => {
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 200);
   }, [schemas]);
 
   useEffect(() => {
@@ -80,7 +82,12 @@ export default function ViewSchemas() {
                       <>
                         {schemas.map((data) => {
                           return (
-                            <div className="mb-3 cursor-pointer">
+                            <div
+                              className="mb-3 cursor-pointer"
+                              onClick={() =>
+                                navigate(`/dashboard/schema/${data.name}`)
+                              }
+                            >
                               <SchemaCard
                                 name={data.name}
                                 version={data.version}
@@ -106,7 +113,12 @@ export default function ViewSchemas() {
                       <>
                         {filteredSchemas.map((data) => {
                           return (
-                            <div className="mb-3">
+                            <div
+                              className="mb-3"
+                              onClick={() =>
+                                navigate(`/dashboard/schema/${data.name}`)
+                              }
+                            >
                               <SchemaCard
                                 name={data.name}
                                 version={data.version}

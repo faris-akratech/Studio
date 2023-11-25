@@ -15,6 +15,7 @@ import CreateOrganizationPage from "./pages/dashboard/organizations/CreateOrgani
 import ViewSchemasPage from "./pages/dashboard/schemas/ViewSchemasPage";
 import CreateSchemaPage from "./pages/dashboard/schemas/CreateSchemaPage";
 import SingleOrganizationPage from "./pages/dashboard/organizations/SingleOrganizationPage";
+import SingleSchemaPage from "./pages/dashboard/schemas/SingleSchemaPage";
 
 function App() {
   return (
@@ -72,6 +73,10 @@ function App() {
           <Route
             path="/dashboard/new-schema"
             element={<PrivateRoute element={CreateSchemaPage} />}
+          />
+          <Route
+            path="/dashboard/schema/:schemaName"
+            element={<SingleSchemaPage />}
           />
         </Routes>
       </Router>

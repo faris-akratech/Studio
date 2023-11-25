@@ -24,7 +24,9 @@ export default function ViewOrganizations() {
   }, []);
 
   useEffect(() => {
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, [organizations]);
 
   useEffect(() => {

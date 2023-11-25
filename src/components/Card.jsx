@@ -2,7 +2,9 @@ import React from "react";
 
 export default function Card({ content, color, count }) {
   return (
-    <div className={`flex-shrink-0 relative overflow-hidden rounded-lg w-full shadow-lg ${color}`}>
+    <div
+      className={`flex-shrink-0 relative overflow-hidden rounded-lg w-full shadow-lg ${color} hover:opacity-80 duration-200 ease-in-out cursor-pointer`}
+    >
       <svg
         className="absolute bottom-0 left-0 mb-8"
         viewBox="0 0 375 283"

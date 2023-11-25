@@ -15,15 +15,9 @@ export default function CreateSchema() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     const id = localStorage.getItem("orgIndex");
     const data = { schemaVersion: version, schemaName: name, attributes };
-    const response = await createNewSchema(data, id);
-    if (response.status === 200) navigate("/dashboard/view-schemas");
-    else {
-      setErr(response?.response?.data?.error);
-      setLoading(false);
-    }
+    console.log(data);
   };
 
   const handleAttributeChange = (index, field, value) => {
@@ -106,7 +100,7 @@ export default function CreateSchema() {
                       />
                     </div>
                     <div className="relative flex items-center w-1/3 h-20 rounded-lg focus-within:shadow-lg border-2 border-[#0F163A] overflow-hidden mr-6">
-                      <input
+                      {/* <input
                         className="peer h-full w-full outline-none text-xl text-[#0F163A] pr-2 px-6 placeholder:text-[#0F163A]"
                         type="text"
                         placeholder="Schema Data Type"
@@ -119,7 +113,25 @@ export default function CreateSchema() {
                           )
                         }
                         required
-                      />
+                      /> */}
+                      <select
+                        className="peer h-full w-full outline-none text-xl text-[#0F163A] pr-2 px-6 placeholder:text-[#0F163A] bg-white"
+                        placeholder="Schema Data Type"
+                        value={attribute.schemaDataType}
+                        onChange={(e) =>
+                          handleAttributeChange(
+                            index,
+                            "schemaDataType",
+                            e.target.value
+                          )
+                        }
+                        required
+                        name="Data_type"
+                      >
+                        <option value="option">Select a datatype</option>
+                        <option value="string">string</option>
+                        <option value="number">number</option>
+                      </select>
                     </div>
                     <div className="relative flex items-center w-1/2 h-20 rounded-lg focus-within:shadow-lg border-2 border-[#0F163A] overflow-hidden">
                       <input

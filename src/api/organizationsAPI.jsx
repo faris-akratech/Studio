@@ -28,3 +28,16 @@ export const createNewOrganization = async (data) => {
     return err;
   }
 };
+
+export const getSpecificOrganization = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/${id}`, {
+      headers: {
+        needsToken: true,
+      },
+    });
+    return response;
+  } catch (err) {
+    return err;
+  }
+};

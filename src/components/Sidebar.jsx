@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const options = [
@@ -30,9 +30,13 @@ const options = [
 ];
 
 export default function Sidebar() {
+  const [page, setPage] = useState("")
   const location = useLocation();
   const navigate = useNavigate();
 
+  // useEffect(()=> {
+  //   if(location.pathname === "")
+  // },[location])
   return (
     <>
       <div className="mt-7">
