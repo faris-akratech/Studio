@@ -1,10 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { getAllOrganizations } from "../api/organizationsAPI";
+import { useLocation } from "react-router-dom";
 
 export default function OrganizationSelector() {
   const [selected, setSelected] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState([]);
+
+  const location = useLocation();
 
   useMemo(() => {
     const getData = async () => {
@@ -27,8 +30,9 @@ export default function OrganizationSelector() {
     setIsOpen(false);
     localStorage.setItem("org", org);
     localStorage.setItem("orgIndex", index);
-    window.location.reload(false)
-  };
+    if (location.pathname === "/dashboard/view-schemas")
+      window.location.reload(false);
+  }; 
 
   return (
     <>
