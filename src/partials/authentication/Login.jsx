@@ -16,17 +16,21 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log('first log');
+    
     if (!emailValidation(email)) {
       setErr("Invalid email format");
       return;
     }
-
+    console.log('second log');
+    
     const data = { email, password };
     try {
+      console.log('third log');
       const response = await axiosInstance.post("/signin", data);
-
+      
       if (response.status === 200) {
+        console.log('fourth log');
         const { iv, encryptedValue } = encrypt(response.data.access_token);
         localStorage.setItem("access", encryptedValue);
         localStorage.setItem("value", iv);
