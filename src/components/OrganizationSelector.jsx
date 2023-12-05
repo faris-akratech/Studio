@@ -19,6 +19,10 @@ export default function OrganizationSelector() {
     getData();
   }, []);
 
+  useEffect(()=> {
+    localStorage.setItem('orgCount', options.length)
+  }, [options])
+
   useEffect(() => {
     const selectedOrganization = localStorage.getItem("org");
     if (selectedOrganization !== null) setSelected(selectedOrganization);

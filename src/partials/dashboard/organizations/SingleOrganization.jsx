@@ -91,7 +91,7 @@ export default function SingleOrganization() {
                 <Card
                   content="Users"
                   color="bg-red-500"
-                  count={3}
+                  count={0}
                 />
               </div>
             </>

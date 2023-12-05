@@ -31,7 +31,6 @@ export default function SingleSchema() {
   }, [details]);
 
   useEffect(() => {
-    console.log(attributes);
   }, [attributes]);
 
   return (

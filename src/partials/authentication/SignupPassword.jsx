@@ -21,7 +21,6 @@ export default function SignupPassword() {
     if (pass === confirmPass) {
       if (passwordValidation(pass)) {
         const mail = localStorage.getItem("Email")
-        console.log(mail);
         const data = {
           firstName,
           lastName,

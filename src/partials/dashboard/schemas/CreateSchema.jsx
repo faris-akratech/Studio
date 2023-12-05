@@ -15,9 +15,15 @@ export default function CreateSchema() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const id = localStorage.getItem("orgIndex");
     const data = { schemaVersion: version, schemaName: name, attributes };
-    console.log(data);
+    const response = await createNewSchema(data, id);
+    if (response.status === 200) navigate("/dashboard/view-schemas");
+    else {
+      setErr(response?.response?.data?.error);
+      setLoading(false);
+    }
   };
 
   const handleAttributeChange = (index, field, value) => {
