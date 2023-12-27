@@ -121,7 +121,7 @@ export default function OrgCard({
                 <div className="mt-1 flex flex-col">{orgDescription}</div>
               </div>
               <div className="flex flex-col">
-                <div className="mt-1 flex flex-col">{orgRoles}s</div>
+                <div className="mt-1 flex flex-col">{orgRoles}</div>
               </div>
             </div>
           </div>

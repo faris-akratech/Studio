@@ -31,6 +31,7 @@ export default function Verification() {
 
           if (response.status === 200) {
             setMsg("User verified successfully");
+            localStorage.setItem("isAllowed", true);
           } else {
             setMsg("Failed to verify user");
           }
@@ -61,7 +62,7 @@ export default function Verification() {
         </div>
         <div className="md:w-1/2 justify-evenly py-10 items-center bg-white">
           <div className="flex items-center h-[85%] justify-center">
-            {loading  ? (
+            {loading ? (
               <h1 className="text-gray-800 font-bold text-2xl">
                 Please wait...
               </h1>
@@ -75,7 +76,6 @@ export default function Verification() {
                 className="w-full h-full"
                 type="button"
                 onClick={() => {
-                  localStorage.setItem("isAllowed", true);
                   navigate("/signup/password");
                 }}
               >

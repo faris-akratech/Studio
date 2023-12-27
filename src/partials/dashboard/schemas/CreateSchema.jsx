@@ -10,23 +10,46 @@ export default function CreateSchema() {
     { attributeName: "", schemaDataType: "", displayName: "" },
   ]);
   const [loading, setLoading] = useState(false);
+  const [missingAttributeIndex, setMissingAttributeIndex] = useState(null);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
+
+    const emptyAttribute = attributes.find(
+      (attribute) =>
+        attribute.attributeName.trim() === "" || attribute.schemaDataType === ""
+    );
+
+    if (emptyAttribute) {
+      const missingField =
+        emptyAttribute.attributeName.trim() === ""
+          ? "Attribute Name"
+          : "Schema Data Type";
+      setErr(
+        `Please provide a value for ${missingField} in all attributes before submitting.`
+      );
+      setMissingAttributeIndex(attributes.indexOf(emptyAttribute));
+      setLoading(false);
+      return;
+    }
+
+    // setLoading(true);
     const id = localStorage.getItem("orgIndex");
     const data = { schemaVersion: version, schemaName: name, attributes };
-    const response = await createNewSchema(data, id);
-    if (response.status === 200) navigate("/dashboard/view-schemas");
-    else {
-      setErr(response?.response?.data?.error);
-      setLoading(false);
-    }
+
+    console.log(data);
+    // const response = await createNewSchema(data, id);
+    // if (response.status === 200) navigate("/dashboard/view-schemas");
+    // else {
+    //   setErr(response?.response?.data?.error);
+    //   setLoading(false);
+    // }
   };
 
   const handleAttributeChange = (index, field, value) => {
+    setMissingAttributeIndex(null);
     const newAttributes = [...attributes];
     newAttributes[index][field] = value;
     setAttributes(newAttributes);
@@ -48,8 +71,8 @@ export default function CreateSchema() {
 
   return (
     <>
-      <form className="w-full" onSubmit={handleSubmit}>
-        <div className="w-full flex ml-10 mt-20">
+      <form className="w-full ml-10" onSubmit={handleSubmit}>
+        <div className="w-full flex mt-20">
           <div className="flex flex-wrap w-full px-5">
             <div className="w-11/12 flex">
               <div className="w-1/2 mb-6 mr-3">
@@ -106,22 +129,10 @@ export default function CreateSchema() {
                       />
                     </div>
                     <div className="relative flex items-center w-1/3 h-20 rounded-lg focus-within:shadow-lg border-2 border-[#0F163A] overflow-hidden mr-6">
-                      {/* <input
-                        className="peer h-full w-full outline-none text-xl text-[#0F163A] pr-2 px-6 placeholder:text-[#0F163A]"
-                        type="text"
-                        placeholder="Schema Data Type"
-                        value={attribute.schemaDataType}
-                        onChange={(e) =>
-                          handleAttributeChange(
-                            index,
-                            "schemaDataType",
-                            e.target.value
-                          )
-                        }
-                        required
-                      /> */}
                       <select
-                        className="peer h-full w-full outline-none text-xl text-[#0F163A] pr-2 px-6 placeholder:text-[#0F163A] bg-white"
+                        className={`peer h-full w-full outline-none text-xl text-[#0F163A] pr-2 px-6 placeholder:text-[#0F163A] bg-white ${
+                          missingAttributeIndex === index && "border-red-500"
+                        }`}
                         placeholder="Schema Data Type"
                         value={attribute.schemaDataType}
                         onChange={(e) =>
@@ -157,13 +168,22 @@ export default function CreateSchema() {
                     </div>
                   </div>
                   {index === attributes.length - 1 && (
-                    <div className="flex items-center justify-around">
-                      <button className="" onClick={addAttribute}>
+                    <div
+                      className={`w-11/12 flex items-center ${
+                        attributes.length > 1
+                          ? "justify-around"
+                          : "justify-center"
+                      }`}
+                    >
+                      <button
+                        className="bg-gray-200 hover:bg-gray-300 duration-300 ease-in-out p-3 rounded-md"
+                        onClick={addAttribute}
+                      >
                         + Add new attribute
                       </button>
                       {attributes.length > 1 && (
                         <button
-                          className="ml-2"
+                          className="bg-gray-200 hover:bg-gray-300 duration-300 ease-in-out p-3 rounded-md"
                           onClick={() => removeAttribute(index)}
                         >
                           - Remove
