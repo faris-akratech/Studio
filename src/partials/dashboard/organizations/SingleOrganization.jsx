@@ -5,6 +5,7 @@ import Loader from "../../../components/Loader";
 import Card from "../../../components/Card";
 import BackButton from "../../../components/BackButton";
 import { getAllSchemas } from "../../../api/schemasAPI";
+import organizationStore from "../../../store/organizationStore";
 
 export default function SingleOrganization() {
   const [details, setDetails] = useState();
@@ -13,6 +14,7 @@ export default function SingleOrganization() {
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const { setSelectedOrganization, setSelectedOrgIndex } = organizationStore()
   const { orgId } = useParams();
   const navigate = useNavigate();
 
@@ -40,6 +42,8 @@ export default function SingleOrganization() {
   const handleSchemaClick = (e) => {
     e.preventDefault();
     localStorage.setItem("org", details.name);
+    setSelectedOrganization(details.name)
+    setSelectedOrgIndex(orgId)
     localStorage.setItem("orgIndex", orgId);
     navigate("/dashboard/view-schemas");
   };

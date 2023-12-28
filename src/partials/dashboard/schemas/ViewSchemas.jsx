@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { getAllSchemas } from "../../../api/schemasAPI";
 import OrgCard from "../../../components/OrgCard";
 import { useNavigate } from "react-router-dom";
 import SchemaCard from "../../../components/SchemaCard";
 import Loader from "../../../components/Loader";
+import organizationStore from "../../../store/organizationStore";
 
 export default function ViewSchemas() {
   const [schemas, setSchemas] = useState([]);
@@ -12,21 +13,37 @@ export default function ViewSchemas() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
+  const { selectedOrganization, selectedOrgIndex } = organizationStore();
+
   const navigate = useNavigate();
 
-  useMemo(() => {
-    const getData = async () => {
-      const id = localStorage.getItem("orgIndex");
-      if (!id) {
-        return setErr("Please select an organization from top");
-      }
-      const response = await getAllSchemas(id);
-      if (response.status === 200) {
-        setSchemas(response.data.data.schemasResult);
-      } else setErr(response.response.data.error);
-    };
+  useEffect(() => {
     getData();
-  }, []);
+  }, [selectedOrgIndex, selectedOrganization]);
+
+  useEffect(()=> {
+    getData()
+  }, [])
+
+  const getData = async () => {
+    setLoading(true);
+    const id = localStorage.getItem("orgIndex") || selectedOrgIndex
+    // const id = selectedOrgIndex;
+    if (id === null || undefined) {
+      return setErr("Please select an organization from top");
+    }
+    const response = await getAllSchemas(id);
+    if (response.status === 200) {
+      setSchemas(response.data.data.schemasResult);
+      setLoading(false);
+    } else {
+      setErr(response.response.data.error);
+      setLoading(false);
+    }
+  };
+  // useEffect(()=> {
+  //   fetchSchemas
+  // }, [selectedOrgIndex])
 
   useEffect(() => {
     setTimeout(() => {

@@ -1,13 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { getAllOrganizations } from "../api/organizationsAPI";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
+import organizationStore from "../store/organizationStore";
 
 export default function OrganizationSelector() {
-  const [selected, setSelected] = useState("");
+  // const [selected, setSelected] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState([]);
 
-  const location = useLocation();
+  // const location = useLocation();
+  const { selectedOrganization, setSelectedOrganization, setSelectedOrgIndex } =
+    organizationStore();
 
   useMemo(() => {
     const getData = async () => {
@@ -19,24 +22,28 @@ export default function OrganizationSelector() {
     getData();
   }, []);
 
-  useEffect(()=> {
-    localStorage.setItem('orgCount', options.length)
-  }, [options])
+  useEffect(() => {
+    localStorage.setItem("orgCount", options.length);
+  }, [options]);
 
   useEffect(() => {
     const selectedOrganization = localStorage.getItem("org");
-    if (selectedOrganization !== null) setSelected(selectedOrganization);
-    else setSelected("Select an organizaiton");
+    const selectedIndex = localStorage.getItem("orgIndex");
+    if (selectedOrganization !== null) {
+      setSelectedOrganization(selectedOrganization);
+      setSelectedOrgIndex(selectedIndex);
+    } else setSelectedOrganization("Select an organizaiton");
   }, []);
 
   const changeOrganization = (org, index) => {
-    setSelected(org);
+    setSelectedOrganization(org);
+    setSelectedOrgIndex(index);
     setIsOpen(false);
     localStorage.setItem("org", org);
     localStorage.setItem("orgIndex", index);
-    if (location.pathname === "/dashboard/view-schemas")
-      window.location.reload(false);
-  }; 
+    // if (location.pathname === "/dashboard/view-schemas")
+    //   window.location.reload(false);
+  };
 
   return (
     <>
@@ -44,7 +51,7 @@ export default function OrganizationSelector() {
         className="block min-w-32 bg-white rounded-2xl py-2 px-4 border-2 border-[#FF7F43] text-[#0F163A] font-semibold text-center"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selected}
+        {selectedOrganization}
       </div>
       {isOpen && (
         <>
