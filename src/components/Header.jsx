@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import OrganizationSelector from "./OrganizationSelector";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
+import { clearLocalStorage } from "../services/localStorage";
 
 export default function Header() {
   const [logged, setLogged] = useState(false);
@@ -13,8 +14,7 @@ export default function Header() {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("access");
-    localStorage.removeItem("value");
+    clearLocalStorage()
     navigate("/login");
     window.location.reload(false);
   };

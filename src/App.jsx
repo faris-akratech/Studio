@@ -16,6 +16,8 @@ import ViewSchemasPage from "./pages/dashboard/schemas/ViewSchemasPage";
 import CreateSchemaPage from "./pages/dashboard/schemas/CreateSchemaPage";
 import SingleOrganizationPage from "./pages/dashboard/organizations/SingleOrganizationPage";
 import SingleSchemaPage from "./pages/dashboard/schemas/SingleSchemaPage";
+import IssuancePage from "./pages/dashboard/actions/IssuancePage";
+import VerifiancePage from "./pages/dashboard/actions/VerifiancePage";
 
 function App() {
   return (
@@ -77,6 +79,14 @@ function App() {
           <Route
             path="/dashboard/schema/:schemaName"
             element={<SingleSchemaPage />}
+          />
+          <Route
+            path="/dashboard/issuance"
+            element={<IssuancePage />}
+          />
+          <Route
+            path="/dashboard/verification"
+            element={<VerifiancePage />}
           />
         </Routes>
       </Router>

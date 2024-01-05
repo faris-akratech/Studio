@@ -27,6 +27,13 @@ const options = [
       { title: "Create new schema", url: "/dashboard/new-schema" },
     ],
   },
+  {
+    heading: "Credentials",
+    sections: [
+      { title: "Issuance", url: "/dashboard/issuance" },
+      { title: "Verification", url: "/dashboard/verification" },
+    ],
+  },
 ];
 
 export default function Sidebar() {
