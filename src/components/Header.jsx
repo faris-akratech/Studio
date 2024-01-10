@@ -34,7 +34,7 @@ export default function Header() {
             <a className="flex mr-4 items-center justify-center">
               <div className="mr-10">
                 <button className="h-full w-full" onClick={logout}>
-                  <Button text="Logout" primary={false} />
+                  <Button text="Logout" primary={false} disabled={false}/>
                 </button>
               </div>
             </a>

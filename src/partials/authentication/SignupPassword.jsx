@@ -12,15 +12,17 @@ export default function SignupPassword() {
   const [confirmPass, setConfirmPass] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (pass === confirmPass) {
       if (passwordValidation(pass)) {
-        const mail = localStorage.getItem("Email")
+        const mail = localStorage.getItem("Email");
         const data = {
           firstName,
           lastName,
@@ -33,18 +35,25 @@ export default function SignupPassword() {
             if (response.status === 200) {
               localStorage.removeItem("Email");
               localStorage.removeItem("isAllowed");
+              setLoading(false)
               navigate("/login");
             }
           })
           .catch((err) => {
             setErr(err.response.data.error);
             console.error(err);
+            setLoading(false)
           });
-      } else
+      } else {
         setErr(
           "Password must be 8 charecters long, should include upper and lower case and must contain a number and a special charecter"
         );
-    } else setErr("Passwords do not match");
+        setLoading(false);
+      }
+    } else {
+      setErr("Passwords do not match");
+      setLoading(false);
+    }
   };
   return (
     <>
@@ -169,7 +178,7 @@ export default function SignupPassword() {
               />
             </div>
             <button type="submit" className="h-full w-full">
-              <Button text="Confirm" primary={true} />
+              <Button text="Confirm" primary={true} disabled={loading}/>
             </button>
           </form>
         </div>

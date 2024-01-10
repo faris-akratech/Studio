@@ -42,6 +42,7 @@ export default function Verification() {
         }
       } else {
         setMsg("Verification code not found in the URL");
+        setLoading(false)
       }
     };
 
@@ -79,7 +80,7 @@ export default function Verification() {
                   navigate("/signup/password");
                 }}
               >
-                <Button text="Continue" primary={true} />
+                <Button text="Continue" primary={true} disabled={loading}/>
               </button>
             </div>
           </div>

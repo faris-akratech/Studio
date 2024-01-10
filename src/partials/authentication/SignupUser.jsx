@@ -11,24 +11,31 @@ export default function SignupUser() {
   const [err, setErr] = useState("");
   const [email, setEmail] = useState("");
   const [flag, setFlag] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     if (!emailValidation(email)) {
       setErr("Invalid email format");
+      setLoading(false);
       return;
     }
 
     await axiosInstance
       .post("/verification-mail", { email })
       .then((response) => {
-        if (response.status === 200) setFlag(true);
+        if (response.status === 200) {
+          setFlag(true);
+          setLoading(false);
+        }
       })
       .catch((err) => {
         setErr(err.response.data.error);
         console.error(err);
+        setLoading(false);
       });
   };
   return (
@@ -81,7 +88,7 @@ export default function SignupUser() {
               />
             </div>
             <button type="submit" className="h-full w-full">
-              <Button text="Register" primary={true} />
+              <Button text="Register" primary={true} disabled={loading} />
             </button>
             <span
               className="text-sm ml-2 hover:text-[#0F163A] hover:underline cursor-pointer"

@@ -11,29 +11,33 @@ export default function Login() {
   const [err, setErr] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();    
     if (!emailValidation(email)) {
       setErr("Invalid email format");
+      setLoading(false)
       return;
     }    
     const data = { email, password };
     try {
       const response = await axiosInstance.post("/signin", data);
-      
       if (response.status === 200) {
         const { iv, encryptedValue } = encrypt(response.data.access_token);
         localStorage.setItem("access", encryptedValue);
         localStorage.setItem("value", iv);
-        navigate("/dashboard");
-        window.location.reload(false);
+        setLoading(false)
+        // navigate("/dashboard");
+        // window.location.reload(false);
       }
     } catch (err) {
       console.error(err);
       setErr(err.response.data.error);
+      setLoading(false)
     }
   };
 
@@ -108,7 +112,7 @@ export default function Login() {
               />
             </div>
             <button className="w-full h-full" type="submit">
-              <Button text="Login" primary={true} />
+              <Button text="Login" primary={true} disabled={loading}/>
             </button>
             <span
               className="text-sm ml-2 hover:text-[#0F163A] hover:underline cursor-pointer"
